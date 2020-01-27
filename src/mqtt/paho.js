@@ -2023,7 +2023,7 @@ function onMessageArrived(message) {
 						connectOptions.uris = connectOptions.hosts;
 					}
 				}
-				console.log(connectOptions)
+
 				client.connect(connectOptions);
 			};
 

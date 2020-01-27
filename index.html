@@ -25,18 +25,29 @@
             <div class="panel panel-default">
               <div class="panel-heading">Server</div>
               <div class="panel-body">
-                <div class="form-inline">
-
-                  <select class="form-control" name="" id="">
-                    <option value="">tcp</option>
-                    <option value="">ws</option>
-                  </select>
-                  <input class="form-control" type="text" placeholder="hostname or server ip">
-                  <input class="form-control" type="text" placeholder="port">
-                  <button class="btn btn-default" v-on:click="connect">Connect</button>
-                  <button class="btn btn-default" v-on:click="subscribe">Subscribe</button>
+                <div class="row">
+                  <div class="form-inline">
+                    <select class="form-control" name="" id="">
+                      <option value="">tcp</option>
+                      <option value="">ws</option>
+                    </select>
+                    <input class="form-control" type="text" placeholder="hostname or server ip">
+                    <input class="form-control" type="text" placeholder="port">
+                    <button class="btn btn-default" v-on:click="connect">Connect</button>
+                    <button class="btn btn-default" v-on:click="disconnect">Disconnect</button>
+                  </div>
                 </div>
-                
+                <div v-if="isConnected">
+                  <div class="wor">
+                    <input class="form-control" type="text" placeholder="topic">
+                    <button class="btn btn-default" v-on:click="subscribe">Subscribe</button>
+                  </div>
+                  <div class="row" v-if="isConnected">
+                    <input type="text" placeholder="topic">
+                    <input type="text" placeholder="message">
+                    <button class="btn btn-default" v-on:click="publish">Publish</button>
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -56,7 +67,7 @@
     </div>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- Latest compiled and minified JavaScript -->
-    <script src="/src/mqtt/paho.js"></script>
-    <script src="/dist/build.js"></script>
+    <script src="src/mqtt/paho.js"></script>
+    <script src="dist/build.js"></script>
   </body>
 </html>

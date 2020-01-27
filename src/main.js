@@ -6,14 +6,21 @@ new Vue({
     title:'MQTT 2',
     client:null,
     messages:[],
+    isConnected:false
   },
   methods:{
+    disconnect:function(){
+      console.log("client is disconnecting..");
+      this.client.disconnect();
+      this.isConnected = false;
+    },
     connect:function(){
-      var localtion = {
+      var location = {
         hostname:'64.227.50.39',
         port:8083
       };
-      this.client = new Paho.Client(location.hostname, Number(location.port), "clientId");
+      
+      this.client = new Paho.Client(location.hostname, Number(location.port),"clientId");
 
       // set callback handlers
       this.client.onConnectionLost = this.onConnectionLost;
@@ -24,22 +31,27 @@ new Vue({
         onSuccess:this.onConnect, 
         onFailure:this.onFailure,
         cleanSession:true,
-        keepAliveInterval:120,
+        keepAliveInterval:1000,
         timeout:10,
         reconnect:true,
       });
       
     },
-    subscribe:function(){
+    publish:function(){
+      console.log('publishing')
       var topic = 'test';
-      this.client.subscribe();
+      var message = new Paho.Message("Hello");
+      message.destinationName = topic;
+      this.client.send(message);
+    },
+    subscribe:function(){
+      console.log('subscribing')
+      var topic = 'test';
+      this.client.subscribe(topic);
     },
     onConnect:function(response){
       console.log("onConnect");
-      this.client.subscribe("World");
-      message = new Paho.Client.Message("Hello");
-      message.destinationName = "World";
-      this.client.send(message);
+      this.isConnected = true;
     },
     onFailure:function(message){
       console.log('Connection attemp');
@@ -48,8 +60,10 @@ new Vue({
       if (responseObject.errorCode !== 0) {
         console.log("onConnectionLost:"+responseObject.errorMessage);
       }
+      this.isConnected = false;
     },
     onMessageArrived:function(message){
+      console.log(message);
       console.log("onMessageArrived:"+message.payloadString);
     }
   }
