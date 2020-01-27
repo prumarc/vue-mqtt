@@ -21,31 +21,36 @@
     <div id="app">
       <div class="container">
         <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-12">
             <div class="panel panel-default">
               <div class="panel-heading">Server</div>
               <div class="panel-body">
                 <div class="row">
                   <div class="form-inline">
                     <select class="form-control" name="" id="">
-                      <option value="">tcp</option>
                       <option value="">ws</option>
                     </select>
-                    <input class="form-control" type="text" placeholder="hostname or server ip">
-                    <input class="form-control" type="text" placeholder="port">
+                    <input v-model="hostname" class="form-control" type="text" placeholder="hostname or server ip">
+                    <input v-model="port" class="form-control" type="text" placeholder="port">
                     <button class="btn btn-default" v-on:click="connect">Connect</button>
-                    <button class="btn btn-default" v-on:click="disconnect">Disconnect</button>
+                    <button class="btn btn-danger" v-on:click="disconnect">Disconnect</button>
                   </div>
                 </div>
+                <br>
                 <div v-if="isConnected">
-                  <div class="wor">
-                    <input class="form-control" type="text" placeholder="topic">
-                    <button class="btn btn-default" v-on:click="subscribe">Subscribe</button>
+                  <div class="row">
+                    <div class="form-inline">
+                      <input class="form-control" type="text" placeholder="topic" v-model="subs_topic">
+                      <button class="btn btn-primary" v-on:click="subscribe">Subscribe</button>
+                    </div>
                   </div>
-                  <div class="row" v-if="isConnected">
-                    <input type="text" placeholder="topic">
-                    <input type="text" placeholder="message">
-                    <button class="btn btn-default" v-on:click="publish">Publish</button>
+                  <br>
+                  <div class="row">
+                    <div class="form-inline">
+                      <input class="form-control" type="text" placeholder="topic" v-model="pub_topic">
+                      <input class="form-control" type="text" placeholder="message" v-model="pub_message">
+                      <button class="btn btn-success" v-on:click="publish">Publish</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -56,11 +61,13 @@
                 <h3 class="panel-title">Messages</h3>
               </div>
               <div class="panel-body">
-                Panel content
+                <div v-for="(message, index) in messages" style="border-top:1px solid #ddd;margin-top:5px">
+                  <span class="label label-default">{{message.topic}}</span> {{message.message}}
+                </div>
               </div>
             </div>
           </div>
-          <div class="col-md-4">.col-md-4</div>
+          
         </div>
       </div>
       

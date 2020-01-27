@@ -6,7 +6,12 @@ new Vue({
     title:'MQTT 2',
     client:null,
     messages:[],
-    isConnected:false
+    isConnected:false,
+    hostname:null,
+    port:null,
+    subs_topic:'',
+    pub_topic:'',
+    pub_message:''
   },
   methods:{
     disconnect:function(){
@@ -15,12 +20,12 @@ new Vue({
       this.isConnected = false;
     },
     connect:function(){
-      var location = {
-        hostname:'64.227.50.39',
-        port:8083
-      };
+      // var location = {
+      //   hostname:'64.227.50.39',
+      //   port:8083
+      // };
       
-      this.client = new Paho.Client(location.hostname, Number(location.port),"clientId");
+      this.client = new Paho.Client(this.hostname, Number(this.port),"clientId");
 
       // set callback handlers
       this.client.onConnectionLost = this.onConnectionLost;
@@ -39,15 +44,16 @@ new Vue({
     },
     publish:function(){
       console.log('publishing')
-      var topic = 'test';
-      var message = new Paho.Message("Hello");
-      message.destinationName = topic;
+      var message = new Paho.Message(this.pub_message);
+      message.destinationName = this.pub_topic;
       this.client.send(message);
+      this.pub_topic = '';
+      this.pub_message = '';
     },
     subscribe:function(){
       console.log('subscribing')
-      var topic = 'test';
-      this.client.subscribe(topic);
+      this.client.subscribe(this.subs_topic);
+      this.subs_topic = '';
     },
     onConnect:function(response){
       console.log("onConnect");
@@ -65,6 +71,7 @@ new Vue({
     onMessageArrived:function(message){
       console.log(message);
       console.log("onMessageArrived:"+message.payloadString);
+      this.messages.push({message:message.payloadString,topic:message.destinationName});
     }
   }
 })
