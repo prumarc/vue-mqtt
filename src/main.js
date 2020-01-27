@@ -11,7 +11,8 @@ new Vue({
     port:null,
     subs_topic:'',
     pub_topic:'',
-    pub_message:''
+    pub_message:'',
+    topic_subcriptions:['test','test2','test3/hola']
   },
   methods:{
     disconnect:function(){
@@ -53,7 +54,11 @@ new Vue({
     subscribe:function(){
       console.log('subscribing')
       this.client.subscribe(this.subs_topic);
+      this.topic_subcriptions.push(this.subs_topic);
       this.subs_topic = '';
+    },
+    ubsubscribe:function(){
+      console.log('unsubscribing')
     },
     onConnect:function(response){
       console.log("onConnect");

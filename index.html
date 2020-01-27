@@ -21,7 +21,7 @@
     <div id="app">
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-8">
             <div class="panel panel-default">
               <div class="panel-heading">Server</div>
               <div class="panel-body">
@@ -67,9 +67,21 @@
               </div>
             </div>
           </div>
-          
+          <div class="col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">Subcriptions</div>
+              <div class="panel-body">
+                <table class="table table-striped">
+                  <thead><th>Topic</th><th>Action</th></thead>
+                  <tr v-for="(subcription, index) in topic_subcriptions">
+                    <td>{{subcription}}</td>
+                    <td><button class="btn btn-danger btn-xs" v-on:click="ubsubscribe">Unsubscribe</button></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
       
     </div>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
