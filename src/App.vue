@@ -1,14 +1,19 @@
 <template>
-    <mqttcon :hostname="'192.241.209.137'" :showConn="false" :autoConnect="true" ></mqttcon>
+<div id="app">
+    <mqttcon 
+    :hostname="'192.241.209.137'" 
+    :showConn="true" 
+    :autoConnect="true" ></mqttcon>
+</div>
 </template>
 
 <script>
 import Mqttcon from './components/mqttcon'
 export default {
-    name:"all",
+    name:"app",
     components:{
         Mqttcon
     }
-
 }
 </script>
+

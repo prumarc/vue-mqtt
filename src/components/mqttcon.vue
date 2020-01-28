@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="vertical-center">
+    <div id="appConn" class="vertical-center">
       <div class="container">
         <div>
           <h1>MQTT Web Client</h1>
@@ -112,6 +112,7 @@ export default {
         if(this.autoConnect && this.hostname.length > 0 && this.port > 0 ){
             //this.disconnect();
             this.connect();
+
         }
     },
   methods:{
@@ -121,8 +122,7 @@ export default {
       this.isConnected = false;
     },
     connect:function(){
-        //this.disconnect();
-        this.client = new Paho.Client(this.hostname, Number(this.port),"clientId");
+        this.client = new Paho.Client(this.hostname, Number(this.port),"clientId"+ rand());
         // set callback handlers
         this.client.onConnectionLost = this.onConnectionLost;
         this.client.onMessageArrived = this.onMessageArrived;
