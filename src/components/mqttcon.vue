@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="vertical-center">
+    <div id="appConn" class="vertical-center">
       <div class="container">
         <div>
           <h1>MQTT Web Client</h1>
@@ -112,6 +112,7 @@ export default {
         if(this.autoConnect && this.hostname.length > 0 && this.port > 0 ){
             //this.disconnect();
             this.connect();
+
         }
     },
   methods:{
