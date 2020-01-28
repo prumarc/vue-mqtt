@@ -1,5 +1,5 @@
 <template>
-    <mqttcon :hostname="'192.241.209.137'" :showConn="false" :autoConnect="true" ></mqttcon>
+    <mqttcon :hostname="'192.241.209.137'" :showConn="true" :autoConnect="true" ></mqttcon>
 </template>
 
 <script>
