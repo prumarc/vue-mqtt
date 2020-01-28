@@ -122,7 +122,7 @@ export default {
     },
     connect:function(){
         //this.disconnect();
-        this.client = new Paho.Client(this.hostname, Number(this.port),"clientId");
+        this.client = new Paho.Client(this.hostname, Number(this.port),"clientId_" + Math.floor((Math.random() * 100000) + 1));
         // set callback handlers
         this.client.onConnectionLost = this.onConnectionLost;
         this.client.onMessageArrived = this.onMessageArrived;
@@ -130,7 +130,7 @@ export default {
         // connect the client
         try {
             this.client.connect({
-                onSuccess:this.onConnect, 
+                onSuccess:this.onConnect,
                 onFailure:this.onFailure,
                 cleanSession:true,
                 keepAliveInterval:1000,
