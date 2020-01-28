@@ -16,18 +16,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-      .vertical-center {
-        min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-        min-height: 100vh; /* These two lines are counted as one :-)       */
-
-        display: flex;
-        align-items: center;
-      }
-    </style>
+    
   </head>
   <body>
-
     <div id="app" class="vertical-center">
       <div class="container">
         <div>
@@ -88,7 +79,7 @@
                   <thead><th>Topic</th><th>Action</th></thead>
                   <tr v-for="(subcription, index) in topic_subcriptions">
                     <td>{{subcription}}</td>
-                    <td><button class="btn btn-danger btn-xs" v-on:click="ubsubscribe">Unsubscribe</button></td>
+                    <td><button class="btn btn-danger btn-xs" v-on:click="unsubscribe($event,subcription)">Unsubscribe</button></td>
                   </tr>
                 </table>
               </div>
@@ -99,7 +90,7 @@
     </div>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- Latest compiled and minified JavaScript -->
-    <script src="/src/mqtt/paho.js"></script>
-    <script src="/dist/build.js"></script>
+    <script src="./src/mqtt/paho.js"></script>
+    <script src="./dist/build.js"></script>
   </body>
 </html>
